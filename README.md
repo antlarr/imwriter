@@ -1,6 +1,7 @@
 # imwriter
 
-Downloads and writes raw disk images and operating systems to usb drives
+Downloads and writes raw disk images and operating systems to usb drives.
+
 The idea is to have a tool that every distribution can use to download
 and write usb images. 
 
@@ -10,20 +11,24 @@ This version is not yet finished and is not suitable for regular users.
 
 Only try it if you're a developer who want to help with the development.
 
-The backend works but the most of the GUI is missing (for example, progress
+The backend works but most of the GUI is missing (for example, progress
 is reported on stdout instead of a nice progress bar, which is in my TODO).
 
 # What works
 
-- Downloads disk image & write it to usb disk on-the-fly
+- Drag & drop an image to an usb device
+- Update the usb devices view as usb sticks are plugged/unplugged into the
+  system
+- Downloads disk image & write it to usb disk on-the-fly . Faster than dd!
 - Downloads checksum file from the distribution site
-- Checks the checksum of written data, also on-the-fly 
+- Calculates the checksum of written data, also on-the-fly 
 - Checks if the PGP signature of the downloaded checksum file is valid (if 
   present)
 - Progress percentage (on stdout)
 - All reports of checksum and pgp validity are reported on stdout
 - Downloads the list of available images from an xml file in the distribution
-  site although by default uses a local one that gets installed.
+  site although by default uses a local one that gets installed (and currently
+  the source code has to be modified if you want it to download the xml file)
 
 # What doesn't work (yet)
 
@@ -50,8 +55,8 @@ In order for gpg verification to work, suse and opensuse build keys
 have to be imported. Usually this is acomplished with the following
 two commands:
 
-gpg --import /usr/lib/rpm/gnupg/keys/gpg-pubkey-307e3d54-4be01a65.asc
-gpg --import /usr/lib/rpm/gnupg/keys/gpg-pubkey-3dbdc284-53674dd4.asc
+> gpg --import /usr/lib/rpm/gnupg/keys/gpg-pubkey-307e3d54-4be01a65.asc
+> gpg --import /usr/lib/rpm/gnupg/keys/gpg-pubkey-3dbdc284-53674dd4.asc
 
 if any of the keys can't be found, be sure to check the
 openSUSE-build-key package is installed and import the keys it contains
@@ -60,15 +65,15 @@ openSUSE-build-key package is installed and import the keys it contains
 
 ## openSUSE:
 
-zypper install kcoreaddons-devel ki18n-devel gpgmepp5-devel solid-devel extra-cmake-modules libQt5DBus-devel libopenssl-devel 
+> zypper install kcoreaddons-devel ki18n-devel gpgmepp5-devel solid-devel extra-cmake-modules libQt5DBus-devel libopenssl-devel 
 
 ## Debian:
 
-apt-get install libkf5coreaddons-dev libkf5i18n-dev libkf5gpgmepp-dev libkf5solid-dev extra-cmake-modules libssl-dev
+> apt-get install libkf5coreaddons-dev libkf5i18n-dev libkf5gpgmepp-dev libkf5solid-dev extra-cmake-modules libssl-dev
 
 # How to Build and Install
 
-mkdir build && cd build && cmake .. && make && sudo make install
+> mkdir build && cd build && cmake .. && make && sudo make install
 
 # How to test
 
@@ -80,6 +85,6 @@ without hesitating)
 
 # How to Uninstall
 
-cd build && sudo make uninstall
+> cd build && sudo make uninstall
 
 
