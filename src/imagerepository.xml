@@ -1,0 +1,44 @@
+<images>
+  <image>
+     <name>openSUSE Leap 42.1 DVD x86_64</name>
+     <url>http://download.opensuse.org/distribution/leap/42.1/iso/openSUSE-Leap-42.1-DVD-x86_64.iso</url>
+     <size>4648337408</size>
+     <description>DVD image for openSUSE Leap 42.1 x86_64</description>
+     <arch>x86_64</arch>
+     <type>SingleDVD</type>
+     <icon>opensuse</icon>
+     <vendor>openSUSE</vendor>
+     <checksumurl>http://download.opensuse.org/distribution/leap/42.1/iso/openSUSE-Leap-42.1-DVD-x86_64.iso.sha256</checksumurl>
+  </image>
+  <image>
+     <name>openSUSE Leap 42.1 NET x86_64</name>
+     <url>http://download.opensuse.org/distribution/leap/42.1/iso/openSUSE-Leap-42.1-NET-x86_64.iso</url>
+     <size>8918960</size>
+     <description>NET image for openSUSE Leap 42.1 x86_64. It's a small size disk that downloads the needed packages when installing</description>
+     <arch>x86_64</arch>
+     <type>NET</type>
+     <icon>opensuse</icon>
+     <vendor>openSUSE</vendor>
+     <checksumurl>http://download.opensuse.org/distribution/leap/42.1/iso/openSUSE-Leap-42.1-NET-x86_64.iso.sha256</checksumurl>
+  </image>
+  <image>
+     <name>openSUSE Tumbleweed DVD i586 2015/12/09</name>
+     <url>http://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-DVD-i586-Snapshot20151209-Media.iso</url>
+     <description>DVD image for openSUSE Tumbleweed i586</description>
+     <arch>i586</arch>
+     <type>SingleDVD</type>
+     <icon>opensuse</icon>
+     <vendor>openSUSE</vendor>
+     <checksumurl>http://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-DVD-i586-Snapshot20151209-Media.iso.sha256</checksumurl>
+  </image>
+  <image>
+     <name>openSUSE Tumbleweed DVD x86_64 2015/12/09</name>
+     <url>http://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-DVD-x86_64-Snapshot20151209-Media.iso</url>
+     <description>DVD image for openSUSE Tumbleweed x86_64</description>
+     <arch>x86_64</arch>
+     <type>SingleDVD</type>
+     <icon>opensuse</icon>
+     <vendor>openSUSE</vendor>
+     <checksumurl>http://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-DVD-i586-Snapshot20151209-Media.iso.sha256</checksumurl>
+  </image>
+</images>
