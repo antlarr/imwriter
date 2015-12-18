@@ -33,7 +33,7 @@ Writer::Writer(BucketStream *input, BucketStream *output, const QString& filenam
    if (m_fd == -1)
    {
       int err=errno;
-      std::cerr << qPrintable(QStringLiteral("Error opening %1: %2").arg(filename).arg(qStrerror(err))) << std::endl;
+      std::cerr << qPrintable(QStringLiteral("Error opening %1: %2").arg(m_filename).arg(qStrerror(err))) << std::endl;
    }
 }
 
