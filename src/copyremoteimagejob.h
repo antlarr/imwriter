@@ -39,6 +39,7 @@ public:
 
 protected:
     Image m_sourceImage;
+    QString m_targetFile;
 };
 
 #endif // COPYLOCALFILE_H

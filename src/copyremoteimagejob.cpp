@@ -32,7 +32,7 @@
 #include <iostream>
 
 CopyRemoteImageJob::CopyRemoteImageJob(const Image& sourceImage, const QString& targetFile):
-   CopyImageJob(), m_sourceImage(sourceImage)
+   CopyImageJob(), m_sourceImage(sourceImage), m_targetFile(targetFile)
 {
    m_factory=new BucketFactory(1024*1024, 10); 
    m_stream=new BucketStream(QStringLiteral("stream1"));

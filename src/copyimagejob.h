@@ -45,7 +45,6 @@ public slots:
 protected:
    CopyImageJob();
 
-   QString m_targetFile;
    QSemaphore m_semaphore;
    Worker *m_reader;
    Writer *m_writer;
