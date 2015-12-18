@@ -24,6 +24,8 @@
 #include <QString>
 #include <QUrl>
 #include <QNetworkReply>
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
 
 class Downloader : public Worker
 {
@@ -41,7 +43,10 @@ public slots:
    void errorDownloading(QNetworkReply::NetworkError code);
 
 protected:
+    void requestUrl(const QUrl &url);
     QUrl m_url;
+    QNetworkAccessManager *m_networkAccessManager;
+    QNetworkRequest *m_request;
     QNetworkReply *m_reply;
     bool m_firstTime;
     Bucket m_currentBucket;

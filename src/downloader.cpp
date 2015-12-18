@@ -28,7 +28,7 @@
 #include <qglobal.h>
 
 Downloader::Downloader(BucketStream *input, BucketStream *output, const QUrl &url, qint64 expectedSize) : 
-  Worker(input, output), m_url(url), m_firstTime(true)
+  Worker(input, output), m_url(url), m_firstTime(true), m_networkAccessManager(0L), m_request(0L), m_reply(0L)
 {
   m_expectedSize=expectedSize;
 }
@@ -36,18 +36,26 @@ Downloader::~Downloader()
 {
    
 }
-void Downloader::run()
+
+void Downloader::requestUrl(const QUrl& url)
 {
-   QNetworkAccessManager networkAccessManager;
-   QNetworkRequest request;
-   request.setUrl(m_url);
+   m_request->setUrl(m_url);
+   m_firstTime=true;
    
-   m_reply = networkAccessManager.get(request);
+   m_reply = m_networkAccessManager->get(*m_request);
    m_reply->setReadBufferSize(128*1024);
 
-   connect(m_reply, SIGNAL (readyRead()),  this, SLOT (readData())  );   
+   connect(m_reply, SIGNAL (readyRead()),  this, SLOT (readData()), Qt::DirectConnection);
    connect(m_reply, SIGNAL (finished()),  this, SLOT (fileDownloaded())  );
    connect(m_reply, SIGNAL (error(QNetworkReply::NetworkError)), this, SLOT (errorDownloading(QNetworkReply::NetworkError)) );
+}
+
+void Downloader::run()
+{
+   m_networkAccessManager=new QNetworkAccessManager;
+   m_request=new QNetworkRequest;
+
+   requestUrl(m_url);
 
    QThread::exec();
    
@@ -57,6 +65,10 @@ void Downloader::run()
    m_currentBucket=m_inputStream->popBucket();
    m_currentBucket.setEOF(true);
    m_outputStream->pushBucket(m_currentBucket);
+
+   delete m_reply;
+   delete m_request;
+   delete m_networkAccessManager;
 
    qDebug() << "downloader really done";
    
@@ -78,6 +90,22 @@ void Downloader::readData()
   if (m_firstTime)
   {
     QVariant value=m_reply->header(QNetworkRequest::ContentLengthHeader);
+
+    qDebug() << "ContentDisposition" << m_reply->header(QNetworkRequest::ContentDispositionHeader);
+    int status=m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    if (status >= 300 && status <= 399)
+    {
+      // File has moved!
+      m_url = m_reply->header(QNetworkRequest::LocationHeader).toUrl();
+      qDebug() << "Content moved to " << m_url;
+
+      m_reply->disconnect(SIGNAL(finished()), this, SLOT(fileDownloaded()));
+      m_reply->deleteLater();
+
+      requestUrl(m_url);
+      return;
+    }
+    QList <QNetworkReply::RawHeaderPair>pairs=m_reply->rawHeaderPairs();
     if (value.isValid()) 
     {
       m_expectedSize=value.toULongLong();
