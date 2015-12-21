@@ -31,6 +31,7 @@
 #include <gpgme++/decryptionresult.h>
 #include <memory>
 #include <openssl/evp.h>
+#include <iostream>
 
 ChecksumChecker::ChecksumChecker(BucketStream* input, BucketStream* output, const QString &checksum, const QString &filename): 
   Worker(input, output), m_checksumURL(checksum), m_reply(0L), m_filename(filename)
